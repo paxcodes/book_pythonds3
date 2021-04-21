@@ -1,7 +1,6 @@
 import random
 import sys
 from pathlib import Path
-from time import time
 from timeit import timeit
 from typing import List
 
