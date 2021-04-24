@@ -25,4 +25,4 @@ After `conda` is installed, terminals will have the conda base environment activ
 
 I use [pytest](https://docs.pytest.org/en/stable/contents.html) to run my tests. 
 
-![sample test](./assets/sample_test.png)
+![sample test](./_assets/sample_test.png)
