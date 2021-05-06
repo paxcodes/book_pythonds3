@@ -84,13 +84,23 @@ class LinkedList:
         """
         # TODO
 
-    def index(self, item: Any) -> int:
+    def index(self, item: Any) -> Optional[int]:
         """Returns the position of the {item} in the list.
 
-        As said in the book, "We will assume that position names are integers starting
-        with 0."
+        Returns:
+            Optional[int]: The position of the item. As said in the book, "We will assume that
+                position names are integers starting with 0." If the position is not
+                found, returns `None`
         """
-        # TODO
+        position = 0
+        currentNode = self.head
+        while currentNode:
+            if currentNode.data == item:
+                return position
+            else:
+                currentNode = currentNode.next
+            position += 1
+        return None
 
     def pop(self, position: int):
         """Remove the item in {position}.
@@ -118,3 +128,31 @@ class Test_Linked_List:
         givenLinkedList.add("Num")
         givenLinkedList.add("Py")
         assert givenLinkedList.size == 3
+
+    def test_position_of_first_item_in_Linked_List_should_be_zero(self):
+        givenLinkedList = LinkedList()
+        givenLinkedList.add(1)
+        assert givenLinkedList.index(1) == 0
+
+    def test_position_of_last_item_added_in_Linked_List_should_be_zero(self):
+        givenLinkedList = LinkedList()
+        givenLinkedList.add(1)
+        givenLinkedList.add("Num")
+        assert givenLinkedList.index("Num") == 0
+
+    def test_position_of_first_item_added_in_Linked_List_should_be_size_minus_one(self):
+        givenLinkedList = LinkedList()
+        givenFirstItemAdded = "Data"
+        givenLinkedList.add(givenFirstItemAdded)
+        givenLinkedList.add("Num")
+        givenLinkedList.add("Py")
+        assert givenLinkedList.index(givenFirstItemAdded) == givenLinkedList.size - 1
+
+    def test_index_method_should_return_position_of_items_in_Linked_List(self):
+        givenLinkedList = LinkedList()
+        givenLinkedList.add(1)
+        givenLinkedList.add("Num")
+        givenLinkedList.add("Py")
+        assert givenLinkedList.index(1) == 2
+        assert givenLinkedList.index("Num") == 1
+        assert givenLinkedList.index("Py") == 0
