@@ -56,7 +56,12 @@ class LinkedList:
 
     @property
     def size(self):
-        pass  # TODO
+        numOfItems = 0
+        currentNode = self.head
+        while currentNode is not None:
+            numOfItems += 1
+            currentNode = currentNode.next
+        return numOfItems
 
     def search(self, item: Any):
         pass  # TODO
@@ -105,3 +110,11 @@ class Test_Linked_List:
         givenLinkedList = LinkedList()
         givenLinkedList.add(1)
         assert not givenLinkedList.is_empty
+
+    def test_size_prop_should_return_size_of_linked_list(self):
+        """`size` property should return the number of items in the Linked List."""
+        givenLinkedList = LinkedList()
+        givenLinkedList.add(1)
+        givenLinkedList.add("Num")
+        givenLinkedList.add("Py")
+        assert givenLinkedList.size == 3
