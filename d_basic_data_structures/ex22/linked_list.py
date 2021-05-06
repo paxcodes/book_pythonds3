@@ -29,7 +29,7 @@ class Node:
         return self._next
 
     @next.setter
-    def next(self, new_next: Node):
+    def next(self, new_next: Optional[Node]):
         self._next = new_next
 
 
@@ -41,7 +41,7 @@ class LinkedList:
 
     @property
     def is_empty(self):
-        pass  # TODO
+        return self.head is None
 
     def add(self, item: Any):
         """Adds the item at the beginning of the list (i.e. as the new head).
@@ -50,7 +50,9 @@ class LinkedList:
         > ...place the new item in the easiest location possible. ... the easiest place
         > to add the new node is right at the head, or beginning, of the list.
         """
-        pass  # TODO
+        newNode = Node(item)
+        newNode.next = self.head
+        self.head = newNode
 
     @property
     def size(self):
@@ -95,4 +97,11 @@ class LinkedList:
 
 
 class Test_Linked_List:
-    pass
+    def test_fresh_linked_list_should_be_empty(self):
+        givenLinkedList = LinkedList()
+        assert givenLinkedList.is_empty
+
+    def test_adding_item_to_fresh_linked_list_should_make_linked_list_not_empty(self):
+        givenLinkedList = LinkedList()
+        givenLinkedList.add(1)
+        assert not givenLinkedList.is_empty
