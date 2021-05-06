@@ -63,8 +63,18 @@ class LinkedList:
             currentNode = currentNode.next
         return numOfItems
 
-    def search(self, item: Any):
-        pass  # TODO
+    def search(self, item: Any) -> bool:
+        """Searches for the item in the list.
+
+        Returns:
+            bool: `True` if the item is found. Otherwise, `False`.
+        """
+        currentNode = self.head
+        while currentNode:
+            if currentNode.data == item:
+                return True
+            currentNode = currentNode.next
+        return False
 
     def remove(self, item: Any):
         pass  # TODO
@@ -156,3 +166,21 @@ class Test_Linked_List:
         assert givenLinkedList.index(1) == 2
         assert givenLinkedList.index("Num") == 1
         assert givenLinkedList.index("Py") == 0
+
+    def test_search_method_should_return_True_for_items_in_the_Linked_List(self):
+        givenLinkedList = LinkedList()
+        givenLinkedList.add(1)
+        givenLinkedList.add("Num")
+        givenLinkedList.add("Py")
+        assert givenLinkedList.search(1)
+        assert givenLinkedList.search("Num")
+        assert givenLinkedList.search("Py")
+
+    def test_search_method_should_return_False_for_items_not_in_the_Linked_List(self):
+        givenLinkedList = LinkedList()
+        givenLinkedList.add(1)
+        givenLinkedList.add("Num")
+        givenLinkedList.add("Py")
+        assert givenLinkedList.search("One") == False
+        assert givenLinkedList.search(2) == False
+        assert givenLinkedList.search("Pandas") == False
