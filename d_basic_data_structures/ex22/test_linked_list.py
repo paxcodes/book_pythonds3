@@ -103,3 +103,17 @@ class Test_Linked_List:
             givenLinkedList.add(1)
             with raises(Exception):
                 givenLinkedList.remove("doesn't exist")
+
+    class Test_Appending_an_Item:
+        def test_item_should_be_at_the_tail_of_the_linked_list(self):
+            givenLinkedList = LinkedList()
+            givenLinkedList.append(1)
+            givenLinkedList.append("Num")
+            assert givenLinkedList.index(1) == 0
+            assert givenLinkedList.index("Num") == 1
+
+        def test_item_should_be_added_the_head_of_an_empty_linked_list(self):
+            givenItem = 1
+            givenLinkedList = LinkedList()
+            givenLinkedList.append(givenItem)
+            givenLinkedList.head.data == givenItem

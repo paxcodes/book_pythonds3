@@ -89,7 +89,15 @@ class LinkedList:
         raise Exception(f"{item} doesn't exist in LinkedList")
 
     def append(self, item: Any):
-        pass  # TODO
+        """Adds the item at the end of the list (i.e. at the tail)."""
+        if self.head is None:
+            self.head = Node(item)
+            return
+
+        currentNode = self.head
+        while currentNode.next:
+            currentNode = currentNode.next
+        currentNode.next = Node(item)
 
     def insert(self, item: Any, position: int):
         """
