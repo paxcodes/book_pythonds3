@@ -10,9 +10,9 @@ Textbook provided for free by [Runestone Academy](https://runestone.academy/rune
 
 If you don't yet have an environment to run jupyter notebooks, you may choose to install `miniconda`. You can follow the instructions from [Vancouver DataJam](https://jenfly.github.io/datajam-python/SETUP) which will include installing the libraries needed for some of my solutions to the exercises (e.g. `pandas`, `matplotlib`).
 
-After `conda` is installed, terminals will have the conda base environment activated by default. To stop this, run `conda config --set auto_activate_base false`.
+After `conda` is installed, terminals will have the conda base environment activated by default. To disable this behaviour, run `conda config --set auto_activate_base false`.
 
-#### Opening the jupyter notebooks
+#### Opening the Jupyter Notebooks
 
 1. Activate the conda base environment, if not yet activated: `conda activate`
 2. Run `jupyter notebook`
