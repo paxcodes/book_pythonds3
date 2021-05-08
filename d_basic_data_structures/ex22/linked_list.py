@@ -79,7 +79,16 @@ class LinkedList:
         return False
 
     def remove(self, item: Any):
-        pass  # TODO
+        prevNode, currentNode = None, self.head
+        while currentNode:
+            if currentNode.data == item:
+                if prevNode:
+                    prevNode.next = currentNode.next
+                else:
+                    self.head = currentNode.next
+                return
+            prevNode, currentNode = currentNode, currentNode.next
+        raise Exception(f"{item} doesn't exist in LinkedList")
 
     def append(self, item: Any):
         pass  # TODO
@@ -186,3 +195,39 @@ class Test_Linked_List:
         givenItemsNotInLinkedList = ["One", 2, "Pandas"]
         for itemNotInLinkedList in givenItemsNotInLinkedList:
             assert givenLinkedList.search(itemNotInLinkedList) == False
+
+    class Test_Removing_Item:
+        ITEM_TO_BE_REMOVED = "Num"
+
+        @fixture(scope="class")
+        def givenLinkedList(self):
+            givenLinkedList = LinkedList()
+            givenLinkedList.add(1)
+            givenLinkedList.add(self.ITEM_TO_BE_REMOVED)
+            givenLinkedList.add("Py")
+            assert givenLinkedList.size == 3
+            givenLinkedList.remove(self.ITEM_TO_BE_REMOVED)
+            return givenLinkedList
+
+        def test_removing_an_item_should_decrease_size_of_linked_list(
+            self, givenLinkedList: LinkedList
+        ):
+            assert givenLinkedList.size == 2
+
+        def test_removing_an_item_should_adjust_indices_of_items_in_linked_list(
+            self, givenLinkedList: LinkedList
+        ):
+            assert givenLinkedList.index(1) == 1
+            assert givenLinkedList.index("Py") == 0
+
+        def test_item_removed_should_not_be_in_the_linked_list_anymore(
+            self, givenLinkedList: LinkedList
+        ):
+            givenRemovedItem = self.ITEM_TO_BE_REMOVED
+            assert givenLinkedList.search(givenRemovedItem) == False
+
+        def test_removing_a_non_existent_item_should_raise_an_error(self):
+            givenLinkedList = LinkedList()
+            givenLinkedList.add(1)
+            with raises(Exception):
+                givenLinkedList.remove("doesn't exist")
