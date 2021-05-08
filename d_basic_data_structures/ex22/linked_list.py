@@ -167,10 +167,33 @@ class LinkedList:
             position += 1
         return None
 
-    def pop(self, position: int):
-        """Remove the item in {position}.
+    def pop(self, position: int) -> Any:
+        """Remove the item in {position}, and returns it.
 
         As said in the book, "We will assume that position names are integers starting
         with 0."
+
+        Raises:
+            Exception: When {position} is out of range.
         """
-        # TODO
+        # Let's set a constant so we can use 'is' comparison. Using '==' is not
+        # sufficient since `False == 0` would return True, when we would want it to
+        # be False. Although...there's only a tiny likelihood (super close to 0%) that
+        # someone would use this class (found in a repo for book exercise)
+        # would decide to pass `False` as `position`. 🤔
+        # It might be a good idea anyway to implement it this way to reinforce the idea
+        # in my own head that `False == 0` returns `True`. 😅
+        # TODO do this for other `== position` conditions
+        ZERO = 0
+        item = None
+        if position == ZERO:
+            item = self.head.data
+            self.head = self.head.next
+
+        if item is None:
+            raise Exception(
+                f"Position {position} is out of range. "
+                f"Size of linked list is {self.size}."
+            )
+
+        return item
