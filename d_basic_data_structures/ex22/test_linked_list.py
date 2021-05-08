@@ -163,25 +163,26 @@ class Test_Linked_List:
                 givenLinkedList.insert("Apple", 9)
 
     class Test_Popping_an_Item:
-        def test_popping_an_item_at_out_of_bounds_position_should_raise_an_error(
-            self,
-        ):
-            givenLinkedList = LinkedList()
-            givenLinkedList.add(1)
-            givenLinkedList.add("Num")
-            givenLinkedList.add("Py")
-            givenSize = givenLinkedList.size
-            givenOutOfRangePositions = [-1, 3, 5]
+        class Test_When_position_is_out_of_bounds:
+            def test_it_should_raise_an_error(
+                self,
+            ):
+                givenLinkedList = LinkedList()
+                givenLinkedList.add(1)
+                givenLinkedList.add("Num")
+                givenLinkedList.add("Py")
+                givenSize = givenLinkedList.size
+                givenOutOfRangePositions = [-1, 3, 5]
 
-            for outOfRangePosition in givenOutOfRangePositions:
-                expectedErrorMsg = (
-                    f"Position {outOfRangePosition} is out of range. "
-                    f"Size of linked list is {givenSize}."
-                )
-                with raises(Exception, match=expectedErrorMsg):
-                    givenLinkedList.pop(outOfRangePosition)
+                for outOfRangePosition in givenOutOfRangePositions:
+                    expectedErrorMsg = (
+                        f"Position {outOfRangePosition} is out of range. "
+                        f"Size of linked list is {givenSize}."
+                    )
+                    with raises(Exception, match=expectedErrorMsg):
+                        givenLinkedList.pop(outOfRangePosition)
 
-        class Test_When_Popping_at_Position_0:
+        class Test_When_popping_at_position_0:
             @fixture(scope="class")
             def givenLinkedList(self) -> LinkedList:
                 ll = LinkedList()
