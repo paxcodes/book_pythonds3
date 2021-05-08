@@ -100,7 +100,7 @@ class LinkedList:
         currentNode.next = Node(item)
 
     def insert(self, item: Any, position: int):
-        """
+        """python
         Inserts the {item} in {position}.
 
         Args:
@@ -109,7 +109,21 @@ class LinkedList:
                 the book, "We will assume that position names are integers starting
                 with 0."
         """
-        # TODO
+        prevNode, currentPosition, currentNode = None, 0, self.head
+        # TODO refactor: get node in {position}
+        while currentPosition != position:
+            currentPosition += 1
+            prevNode, currentNode = currentNode, currentNode.next
+
+        # TODO refactor: adjust nodes / insert newNode
+        newNode = Node(item)
+        if prevNode:
+            prevNode.next = newNode
+        else:
+            self.head = newNode
+
+        if currentNode:
+            newNode.next = currentNode
 
     def index(self, item: Any) -> Optional[int]:
         """Returns the position of the {item} in the list.

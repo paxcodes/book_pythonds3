@@ -117,3 +117,47 @@ class Test_Linked_List:
             givenLinkedList = LinkedList()
             givenLinkedList.append(givenItem)
             givenLinkedList.head.data == givenItem
+
+    class Test_Inserting_an_Item:
+        @fixture(scope="class")
+        def givenLinkedList(self):
+            ll = LinkedList()
+            ll.add(1)
+            ll.add("Num")
+            ll.add("Py")
+            assert ll.size == 3
+            ll.insert("Pandas", 1)
+            return ll
+
+        def test_size_should_increase(self, givenLinkedList: LinkedList):
+            assert givenLinkedList.size == 4
+
+        def test_item_should_be_at_position_specified(
+            self, givenLinkedList: LinkedList
+        ):
+            assert givenLinkedList.index("Pandas") == 1
+
+        def test_index_of_previous_items_should_be_the_same(
+            self, givenLinkedList: LinkedList
+        ):
+            assert givenLinkedList.index("Py") == 0
+
+        def test_index_of_following_items_should_be_adjusted(
+            self, givenLinkedList: LinkedList
+        ):
+            assert givenLinkedList.index("Num") == 2
+            assert givenLinkedList.index(1) == 3
+
+        def test_inserting_at_position_0_should_change_head(self):
+            givenLinkedList = LinkedList()
+            givenLinkedList.add("Pyjamas")
+            givenLinkedList.insert("Sleepers", 0)
+            assert givenLinkedList.head.data == "Sleepers"
+            assert givenLinkedList.index("Pyjamas") == 1
+            assert givenLinkedList.index("Sleepers") == 0
+
+        def test_inserting_at_a_position_that_is_out_of_range_raises_an_error(self):
+            givenLinkedList = LinkedList()
+            with raises(Exception):
+                givenLinkedList.insert("Banana", 1)
+                givenLinkedList.insert("Apple", 9)
