@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Optional
 
-from pytest import fixture
+from pytest import fixture, raises
 
 """
 Linked Lists are discussed in
@@ -161,40 +161,41 @@ class Test_Linked_List:
         givenLinkedList.add("Py")
         assert givenLinkedList.index(givenFirstItemAdded) == givenLinkedList.size - 1
 
-    @fixture(scope="class")
-    def givenLinkedList(self):
-        ll = LinkedList()
-        ll.add(1)
-        ll.add("Num")
-        ll.add("Py")
-        return ll
+    class Test_3_Item_Linked_List:
+        @fixture(scope="class")
+        def givenLinkedList(self):
+            ll = LinkedList()
+            ll.add(1)
+            ll.add("Num")
+            ll.add("Py")
+            return ll
 
-    def test_size_prop_should_return_size_of_linked_list(
-        self, givenLinkedList: LinkedList
-    ):
-        """`size` property should return the number of items in the Linked List."""
-        assert givenLinkedList.size == 3
+        def test_size_prop_should_return_size_of_linked_list(
+            self, givenLinkedList: LinkedList
+        ):
+            """`size` property should return the number of items in the Linked List."""
+            assert givenLinkedList.size == 3
 
-    def test_index_method_should_return_position_of_items_in_linked_list(
-        self, givenLinkedList: LinkedList
-    ):
-        assert givenLinkedList.index(1) == 2
-        assert givenLinkedList.index("Num") == 1
-        assert givenLinkedList.index("Py") == 0
+        def test_index_method_should_return_position_of_items_in_linked_list(
+            self, givenLinkedList: LinkedList
+        ):
+            assert givenLinkedList.index(1) == 2
+            assert givenLinkedList.index("Num") == 1
+            assert givenLinkedList.index("Py") == 0
 
-    def test_search_method_should_return_True_for_items_in_the_linked_list(
-        self, givenLinkedList: LinkedList
-    ):
-        givenItemsInLinkedList = [1, "Num", "Py"]
-        for itemInLinkedList in givenItemsInLinkedList:
-            assert givenLinkedList.search(itemInLinkedList)
+        def test_search_method_should_return_True_for_items_in_the_linked_list(
+            self, givenLinkedList: LinkedList
+        ):
+            givenItemsInLinkedList = [1, "Num", "Py"]
+            for itemInLinkedList in givenItemsInLinkedList:
+                assert givenLinkedList.search(itemInLinkedList)
 
-    def test_search_method_should_return_False_for_items_not_in_the_linked_list(
-        self, givenLinkedList: LinkedList
-    ):
-        givenItemsNotInLinkedList = ["One", 2, "Pandas"]
-        for itemNotInLinkedList in givenItemsNotInLinkedList:
-            assert givenLinkedList.search(itemNotInLinkedList) == False
+        def test_search_method_should_return_False_for_items_not_in_the_linked_list(
+            self, givenLinkedList: LinkedList
+        ):
+            givenItemsNotInLinkedList = ["One", 2, "Pandas"]
+            for itemNotInLinkedList in givenItemsNotInLinkedList:
+                assert givenLinkedList.search(itemNotInLinkedList) == False
 
     class Test_Removing_Item:
         ITEM_TO_BE_REMOVED = "Num"
