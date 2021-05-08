@@ -158,9 +158,15 @@ class Test_Linked_List:
 
         def test_inserting_at_a_position_that_is_out_of_range_raises_an_error(self):
             givenLinkedList = LinkedList()
-            with raises(Exception):
-                givenLinkedList.insert("Banana", 1)
-                givenLinkedList.insert("Apple", 9)
+            givenSize = givenLinkedList.size
+            givenOutOfRangePositions = [1, 9]
+            for outOfRangePosition in givenOutOfRangePositions:
+                expectedErrorMsg = (
+                    f"Position {outOfRangePosition} is out of range. "
+                    f"Size of linked list is {givenSize}."
+                )
+                with raises(Exception, match=expectedErrorMsg):
+                    givenLinkedList.insert("Banana", outOfRangePosition)
 
     class Test_Popping_an_Item:
         class Test_When_position_is_out_of_bounds:
