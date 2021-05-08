@@ -21,6 +21,26 @@ After `conda` is installed, terminals will have the conda base environment activ
 4. When you're done, press `Control-C` to stop the notebook server
 5. Deactivate conda: `conda deactivate`
 
+### Virtual Environment
+
+You don't need to use virtual environments to run the solutions as long as you have python paths set up, and the necessary packages installed (e.g. `pytest` if you are interested in running the tests)
+
+I'm using a virtual environment because I prefer not to use a global installation of [pytest](https://docs.pytest.org/en/stable/contents.html), which is what I use to run my tests.
+
+#### Workflow with the Virtual Environment
+
+1. Create a virtual environment: `virtualenv --prompt "(pythonds3) " .venv
+
+2. Activate environment: `source .venv/bin/activate`
+
+3. pip-install all the things
+   - `pip install [package]` OR
+   - `pip install -r requirements.txt`
+
+4. (noting for my own sake) After installing new packages, export current environment configuration file: `pip freeze > requirements.txt` 
+
+4. Deactivate environment: `deactivate`
+
 ### Tests
 
 I use [pytest](https://docs.pytest.org/en/stable/contents.html) to run my tests. 
