@@ -101,8 +101,8 @@ class Test_Linked_List:
         def test_removing_a_non_existent_item_should_raise_an_error(self):
             givenLinkedList = LinkedList()
             givenLinkedList.add(1)
-            with raises(Exception):
-                givenLinkedList.remove("doesn't exist")
+            with raises(ValueError, match="The item, `Num`, doesn't exist."):
+                givenLinkedList.remove("Num")
 
     class Test_Appending_an_Item:
         def test_item_should_be_at_the_tail_of_the_linked_list(self):
@@ -165,7 +165,7 @@ class Test_Linked_List:
                     f"Position {outOfRangePosition} is out of range. "
                     f"Size of linked list is {givenSize}."
                 )
-                with raises(Exception, match=expectedErrorMsg):
+                with raises(ValueError, match=expectedErrorMsg):
                     givenLinkedList.insert("Banana", outOfRangePosition)
 
     class Test_Popping_an_Item:
@@ -185,7 +185,7 @@ class Test_Linked_List:
                         f"Position {outOfRangePosition} is out of range. "
                         f"Size of linked list is {givenSize}."
                     )
-                    with raises(Exception, match=expectedErrorMsg):
+                    with raises(ValueError, match=expectedErrorMsg):
                         givenLinkedList.pop(outOfRangePosition)
 
                 givenOutOfRangePositions = [-1, -3]
@@ -194,7 +194,7 @@ class Test_Linked_List:
                         f"Invalid position {outOfRangePosition}. "
                         "Position should be 0 to list's size minus 1."
                     )
-                    with raises(Exception, match=expectedErrorMsg):
+                    with raises(ValueError, match=expectedErrorMsg):
                         givenLinkedList.pop(outOfRangePosition)
 
         class Test_When_popping_at_position_0:

@@ -86,7 +86,7 @@ class LinkedList:
                     self.head = currentNode.next
                 return
             prevNode, currentNode = currentNode, currentNode.next
-        raise Exception(f"{item} doesn't exist in LinkedList")
+        raise ValueError(f"The item, `{item}`, doesn't exist in LinkedList")
 
     def append(self, item: Any):
         """Adds the item at the end of the list (i.e. at the tail)."""
@@ -128,7 +128,7 @@ class LinkedList:
                 head of the linked list.
         """
         if position < 0:
-            raise Exception(
+            raise ValueError(
                 f"Invalid position {position}. "
                 "Position should be 0 to list's size minus 1."
             )
@@ -136,7 +136,7 @@ class LinkedList:
         previousNode, currentPosition, currentNode = None, 0, self.head
         while currentPosition != position:
             if currentNode is None:
-                raise Exception(
+                raise ValueError(
                     f"Position {position} is out of range. "
                     f"Size of linked list is {self.size}."
                 )
@@ -204,7 +204,7 @@ class LinkedList:
 
         currentNode, prevNode = self._get_node_and_previous_node(position)
         if currentNode is None:
-            raise Exception(
+            raise ValueError(
                 f"Position {position} is out of range. "
                 f"Size of linked list is {self.size}."
             )
