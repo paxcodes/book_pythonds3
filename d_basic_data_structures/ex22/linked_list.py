@@ -187,6 +187,12 @@ class LinkedList:
         Raises:
             Exception: When {position} is out of range.
         """
+        if self.head is None:
+            raise ValueError(
+                f"Position {position} is out of range. "
+                f"Size of linked list is {self.size}."
+            )
+
         # Let's set a constant so we can use 'is' comparison. Using '==' is not
         # sufficient since `False == 0` would return True, when we would want it to
         # be False. Although...there's only a tiny likelihood (super close to 0%) that

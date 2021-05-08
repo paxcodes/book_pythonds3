@@ -173,6 +173,19 @@ class Test_Linked_List:
             def test_it_should_raise_an_error(
                 self,
             ):
+                ## Test: Attempt popping on an empty list
+                givenLinkedList = LinkedList()
+                givenOutOfRangePositions = [0, 3]
+                for outOfRangePosition in givenOutOfRangePositions:
+                    expectedErrorMsg = (
+                        f"Position {outOfRangePosition} is out of range. "
+                        "Size of linked list is 0."
+                    )
+                    with raises(ValueError, match=expectedErrorMsg):
+                        givenLinkedList.pop(outOfRangePosition)
+
+                ## TODO maybe refactor a LinkedList generator?
+
                 givenLinkedList = LinkedList()
                 givenLinkedList.add(1)
                 givenLinkedList.add("Num")
