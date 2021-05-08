@@ -127,8 +127,19 @@ class LinkedList:
                 {position}. It does not exist if the node on {position} is the
                 head of the linked list.
         """
+        if position < 0:
+            raise Exception(
+                f"Invalid position {position}. "
+                "Position should be 0 to list's size minus 1."
+            )
+
         previousNode, currentPosition, currentNode = None, 0, self.head
         while currentPosition != position:
+            if currentNode is None:
+                raise Exception(
+                    f"Position {position} is out of range. "
+                    f"Size of linked list is {self.size}."
+                )
             currentPosition += 1
             previousNode, currentNode = currentNode, currentNode.next
         return currentNode, previousNode
@@ -189,11 +200,13 @@ class LinkedList:
         if position == ZERO:
             item = self.head.data
             self.head = self.head.next
+            return item
 
-        if item is None:
+        currentNode, prevNode = self._get_node_and_previous_node(position)
+        if currentNode is None:
             raise Exception(
                 f"Position {position} is out of range. "
                 f"Size of linked list is {self.size}."
             )
-
-        return item
+        prevNode.next = currentNode.next
+        return currentNode.data

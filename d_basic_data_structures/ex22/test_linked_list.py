@@ -172,12 +172,21 @@ class Test_Linked_List:
                 givenLinkedList.add("Num")
                 givenLinkedList.add("Py")
                 givenSize = givenLinkedList.size
-                givenOutOfRangePositions = [-1, 3, 5]
+                givenOutOfRangePositions = [3, 5, 10]
 
                 for outOfRangePosition in givenOutOfRangePositions:
                     expectedErrorMsg = (
                         f"Position {outOfRangePosition} is out of range. "
                         f"Size of linked list is {givenSize}."
+                    )
+                    with raises(Exception, match=expectedErrorMsg):
+                        givenLinkedList.pop(outOfRangePosition)
+
+                givenOutOfRangePositions = [-1, -3]
+                for outOfRangePosition in givenOutOfRangePositions:
+                    expectedErrorMsg = (
+                        f"Invalid position {outOfRangePosition}. "
+                        "Position should be 0 to list's size minus 1."
                     )
                     with raises(Exception, match=expectedErrorMsg):
                         givenLinkedList.pop(outOfRangePosition)
