@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Any, Optional
 
+from pytest import fixture
+
 """
 Linked Lists are discussed in
 https://runestone.academy/runestone/books/published/pythonds3/BasicDS/ImplementinganUnorderedListLinkedLists.html
@@ -131,26 +133,18 @@ class Test_Linked_List:
         givenLinkedList.add(1)
         assert not givenLinkedList.is_empty
 
-    def test_size_prop_should_return_size_of_linked_list(self):
-        """`size` property should return the number of items in the Linked List."""
-        givenLinkedList = LinkedList()
-        givenLinkedList.add(1)
-        givenLinkedList.add("Num")
-        givenLinkedList.add("Py")
-        assert givenLinkedList.size == 3
-
-    def test_position_of_first_item_in_Linked_List_should_be_zero(self):
+    def test_position_of_first_item_in_linked_list_should_be_zero(self):
         givenLinkedList = LinkedList()
         givenLinkedList.add(1)
         assert givenLinkedList.index(1) == 0
 
-    def test_position_of_last_item_added_in_Linked_List_should_be_zero(self):
+    def test_position_of_last_item_added_in_linked_list_should_be_zero(self):
         givenLinkedList = LinkedList()
         givenLinkedList.add(1)
         givenLinkedList.add("Num")
         assert givenLinkedList.index("Num") == 0
 
-    def test_position_of_first_item_added_in_Linked_List_should_be_size_minus_one(self):
+    def test_position_of_first_item_added_in_linked_list_should_be_size_minus_one(self):
         givenLinkedList = LinkedList()
         givenFirstItemAdded = "Data"
         givenLinkedList.add(givenFirstItemAdded)
@@ -158,29 +152,37 @@ class Test_Linked_List:
         givenLinkedList.add("Py")
         assert givenLinkedList.index(givenFirstItemAdded) == givenLinkedList.size - 1
 
-    def test_index_method_should_return_position_of_items_in_Linked_List(self):
-        givenLinkedList = LinkedList()
-        givenLinkedList.add(1)
-        givenLinkedList.add("Num")
-        givenLinkedList.add("Py")
+    @fixture(scope="class")
+    def givenLinkedList(self):
+        ll = LinkedList()
+        ll.add(1)
+        ll.add("Num")
+        ll.add("Py")
+        return ll
+
+    def test_size_prop_should_return_size_of_linked_list(
+        self, givenLinkedList: LinkedList
+    ):
+        """`size` property should return the number of items in the Linked List."""
+        assert givenLinkedList.size == 3
+
+    def test_index_method_should_return_position_of_items_in_linked_list(
+        self, givenLinkedList: LinkedList
+    ):
         assert givenLinkedList.index(1) == 2
         assert givenLinkedList.index("Num") == 1
         assert givenLinkedList.index("Py") == 0
 
-    def test_search_method_should_return_True_for_items_in_the_Linked_List(self):
-        givenLinkedList = LinkedList()
-        givenLinkedList.add(1)
-        givenLinkedList.add("Num")
-        givenLinkedList.add("Py")
-        assert givenLinkedList.search(1)
-        assert givenLinkedList.search("Num")
-        assert givenLinkedList.search("Py")
+    def test_search_method_should_return_True_for_items_in_the_linked_list(
+        self, givenLinkedList: LinkedList
+    ):
+        givenItemsInLinkedList = [1, "Num", "Py"]
+        for itemInLinkedList in givenItemsInLinkedList:
+            assert givenLinkedList.search(itemInLinkedList)
 
-    def test_search_method_should_return_False_for_items_not_in_the_Linked_List(self):
-        givenLinkedList = LinkedList()
-        givenLinkedList.add(1)
-        givenLinkedList.add("Num")
-        givenLinkedList.add("Py")
-        assert givenLinkedList.search("One") == False
-        assert givenLinkedList.search(2) == False
-        assert givenLinkedList.search("Pandas") == False
+    def test_search_method_should_return_False_for_items_not_in_the_linked_list(
+        self, givenLinkedList: LinkedList
+    ):
+        givenItemsNotInLinkedList = ["One", 2, "Pandas"]
+        for itemNotInLinkedList in givenItemsNotInLinkedList:
+            assert givenLinkedList.search(itemNotInLinkedList) == False
