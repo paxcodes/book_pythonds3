@@ -197,7 +197,7 @@ class LinkedList:
         # TODO do this for other `== position` conditions
         ZERO = 0
         item = None
-        if position == ZERO:
+        if position is ZERO:
             item = self.head.data
             self.head = self.head.next
             return item
