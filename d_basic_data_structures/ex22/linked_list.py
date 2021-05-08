@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any, Optional, Tuple
 
 """
 Linked Lists are discussed in
@@ -109,16 +109,40 @@ class LinkedList:
                 the book, "We will assume that position names are integers starting
                 with 0."
         """
-        prevNode, currentPosition, currentNode = None, 0, self.head
-        # TODO refactor: get node in {position}
+        currentNode, previousNode = self._get_node_and_previous_node(position)
+        self._insert_item_between_current_and_previous(
+            item, currentNode=currentNode, previousNode=previousNode
+        )
+
+    def _get_node_and_previous_node(
+        self, position: int
+    ) -> Tuple[Optional[Node], Optional[Node]]:
+        """Return the node on {position} and the node before it.
+
+        Returns:
+            Tuple[Optional[Node], Optional[Node]]: The first `Optional[Node]` is the
+                the node on {position}. It does not exist if it's an empty linked list
+                or it's the {position} after the tail of the linked list.
+                    The second `Optional[Node]` is the node before the node on
+                {position}. It does not exist if the node on {position} is the
+                head of the linked list.
+        """
+        previousNode, currentPosition, currentNode = None, 0, self.head
         while currentPosition != position:
             currentPosition += 1
-            prevNode, currentNode = currentNode, currentNode.next
+            previousNode, currentNode = currentNode, currentNode.next
+        return currentNode, previousNode
 
-        # TODO refactor: adjust nodes / insert newNode
+    def _insert_item_between_current_and_previous(
+        self,
+        item: Any,
+        *,
+        currentNode: Optional[Node],
+        previousNode: Optional[Node],
+    ):
         newNode = Node(item)
-        if prevNode:
-            prevNode.next = newNode
+        if previousNode:
+            previousNode.next = newNode
         else:
             self.head = newNode
 
