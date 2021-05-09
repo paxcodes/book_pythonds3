@@ -1,6 +1,6 @@
 from pytest import fixture, raises
 
-from .linked_list import LinkedList, ZERO
+from .linked_list import ZERO, LinkedList
 
 
 def _generate_linked_list(size: int) -> LinkedList:
