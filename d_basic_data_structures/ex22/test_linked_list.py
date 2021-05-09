@@ -8,29 +8,36 @@ class Test_Linked_List:
         givenLinkedList = LinkedList()
         assert givenLinkedList.is_empty
 
-    def test_adding_item_to_fresh_linked_list_should_make_linked_list_not_empty(self):
-        givenLinkedList = LinkedList()
-        givenLinkedList.add(1)
-        assert not givenLinkedList.is_empty
-
     def test_position_of_first_item_in_linked_list_should_be_zero(self):
         givenLinkedList = LinkedList()
         givenLinkedList.add(1)
         assert givenLinkedList.index(1) == 0
 
-    def test_position_of_last_item_added_in_linked_list_should_be_zero(self):
-        givenLinkedList = LinkedList()
-        givenLinkedList.add(1)
-        givenLinkedList.add("Num")
-        assert givenLinkedList.index("Num") == 0
+    class Test_Adding_Items:
+        def test_adding_item_to_fresh_linked_list_should_make_linked_list_not_empty(
+            self,
+        ):
+            givenLinkedList = LinkedList()
+            givenLinkedList.add(1)
+            assert not givenLinkedList.is_empty
 
-    def test_position_of_first_item_added_in_linked_list_should_be_size_minus_one(self):
-        givenLinkedList = LinkedList()
-        givenFirstItemAdded = "Data"
-        givenLinkedList.add(givenFirstItemAdded)
-        givenLinkedList.add("Num")
-        givenLinkedList.add("Py")
-        assert givenLinkedList.index(givenFirstItemAdded) == givenLinkedList.size - 1
+        def test_position_of_last_item_added_in_linked_list_should_be_zero(self):
+            givenLinkedList = LinkedList()
+            givenLinkedList.add(1)
+            givenLinkedList.add("Num")
+            assert givenLinkedList.index("Num") == 0
+
+        def test_position_of_first_item_added_in_linked_list_should_be_size_minus_one(
+            self,
+        ):
+            givenLinkedList = LinkedList()
+            givenFirstItemAdded = "Data"
+            givenLinkedList.add(givenFirstItemAdded)
+            givenLinkedList.add("Num")
+            givenLinkedList.add("Py")
+            assert (
+                givenLinkedList.index(givenFirstItemAdded) == givenLinkedList.size - 1
+            )
 
     class Test_3_Item_Linked_List:
         @fixture(scope="class")
