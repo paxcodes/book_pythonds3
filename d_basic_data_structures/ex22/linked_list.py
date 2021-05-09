@@ -195,6 +195,9 @@ class LinkedList:
         As said in the book, "We will assume that position names are integers starting
         with 0."
 
+        TODO: In Section 4.20, `pop()` returns the _last item_ in the list, and we
+            assume the list has at least one item.
+
         Raises:
             Exception: When {position} is out of range.
         """
