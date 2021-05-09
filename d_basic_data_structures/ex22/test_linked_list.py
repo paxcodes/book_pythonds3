@@ -181,6 +181,28 @@ class Test_Linked_List:
                     givenLinkedList.insert("Banana", outOfRangePosition)
 
     class Test_Popping_an_Item:
+        # TODO Refactor by passing HEAD, MID, and TAIL positions as test parameters
+
+        @fixture(scope="class")
+        def poppedItemAndList(self) -> Tuple[Any, LinkedList]:
+            MID_POSITION = 2
+            ll = _generate_linked_list(4)
+            actualTailItem = ll.pop(MID_POSITION)
+            return actualTailItem, ll
+
+        def test_item_popped_should_not_be_in_linked_list_anymore(
+            self, poppedItemAndList: Tuple[Any, LinkedList]
+        ):
+            actualPoppedItem, givenLinkedList = poppedItemAndList
+            assert actualPoppedItem == 400
+            assert givenLinkedList.search(actualPoppedItem) is False
+
+        def test_linked_list_should_decrease_in_size(
+            self, poppedItemAndList: Tuple[Any, LinkedList]
+        ):
+            _, givenLinkedList = poppedItemAndList
+            assert givenLinkedList.size == 3
+
         class Test_When_popping_the_tail:
             @fixture(scope="class")
             def poppedItemAndList(self) -> Tuple[Any, LinkedList]:
@@ -196,7 +218,9 @@ class Test_Linked_List:
                 assert actualPoppedItem == 600
                 assert givenLinkedList.search(actualPoppedItem) is False
 
-            def test_linked_list_should_decrease_in_size(self, poppedItemAndList: Tuple[Any, LinkedList]):
+            def test_linked_list_should_decrease_in_size(
+                self, poppedItemAndList: Tuple[Any, LinkedList]
+            ):
                 _, givenLinkedList = poppedItemAndList
                 assert givenLinkedList.size == 3
 
