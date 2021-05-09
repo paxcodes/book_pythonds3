@@ -91,13 +91,15 @@ class LinkedList:
         prevNode, currentNode = None, self.head
         while currentNode:
             if currentNode.data == item:
-                if prevNode:
-                    prevNode.next = currentNode.next
-                else:
-                    self.head = currentNode.next
-                return
+                break
             prevNode, currentNode = currentNode, currentNode.next
-        raise ValueError(f"The item, `{item}`, doesn't exist in LinkedList")
+
+        if currentNode is None:
+            raise ValueError(f"The item, `{item}`, doesn't exist in LinkedList")
+        if prevNode:
+            prevNode.next = currentNode.next
+        else:
+            self.head = currentNode.next
 
     def append(self, item: Any):
         """Adds the item at the end of the list (i.e. at the tail)."""
