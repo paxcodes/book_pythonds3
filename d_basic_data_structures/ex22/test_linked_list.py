@@ -181,23 +181,24 @@ class Test_Linked_List:
                     givenLinkedList.insert("Banana", outOfRangePosition)
 
     class Test_Popping_an_Item:
-        @fixture(scope="class")
-        def poppedItemAndList(self) -> Tuple[Any, LinkedList]:
-            TAIL_POSITION = 3
-            ll = _generate_linked_list(4)
-            actualTailItem = ll.pop(TAIL_POSITION)
-            return actualTailItem, ll
+        class Test_When_popping_the_tail:
+            @fixture(scope="class")
+            def poppedItemAndList(self) -> Tuple[Any, LinkedList]:
+                TAIL_POSITION = 3
+                ll = _generate_linked_list(4)
+                actualTailItem = ll.pop(TAIL_POSITION)
+                return actualTailItem, ll
 
-        def test_item_popped_should_not_be_in_linked_list_anymore(
-            self, poppedItemAndList: Tuple[Any, LinkedList]
-        ):
-            actualPoppedItem, givenLinkedList = poppedItemAndList
-            assert actualPoppedItem == 600
-            assert givenLinkedList.search(actualPoppedItem) is False
+            def test_item_popped_should_not_be_in_linked_list_anymore(
+                self, poppedItemAndList: Tuple[Any, LinkedList]
+            ):
+                actualPoppedItem, givenLinkedList = poppedItemAndList
+                assert actualPoppedItem == 600
+                assert givenLinkedList.search(actualPoppedItem) is False
 
-        def test_linked_list_should_decrease_in_size(self, poppedItemAndList: Tuple[Any, LinkedList]):
-            _, givenLinkedList = poppedItemAndList
-            assert givenLinkedList.size == 3
+            def test_linked_list_should_decrease_in_size(self, poppedItemAndList: Tuple[Any, LinkedList]):
+                _, givenLinkedList = poppedItemAndList
+                assert givenLinkedList.size == 3
 
         class Test_When_position_is_out_of_bounds:
             def test_it_should_raise_an_error(
@@ -234,7 +235,7 @@ class Test_Linked_List:
                     with raises(ValueError, match=expectedErrorMsg):
                         givenLinkedList.pop(outOfRangePosition)
 
-        class Test_When_popping_at_position_0:
+        class Test_When_popping_the_head:
             @fixture(scope="class")
             def givenLinkedList(self) -> LinkedList:
                 ll = _generate_linked_list(2)
