@@ -1,6 +1,6 @@
 from pytest import fixture, raises
 
-from .linked_list import LinkedList
+from .linked_list import LinkedList, ZERO
 
 
 def _generate_linked_list(size: int) -> LinkedList:
@@ -23,7 +23,7 @@ class Test_Linked_List:
     def test_position_of_first_item_in_linked_list_should_be_zero(self):
         givenLinkedList = LinkedList()
         givenLinkedList.add(1)
-        assert givenLinkedList.index(1) == 0
+        assert givenLinkedList.index(1) is ZERO
 
     class Test_Adding_Items:
         def test_adding_item_to_fresh_linked_list_should_make_linked_list_not_empty(
@@ -37,7 +37,7 @@ class Test_Linked_List:
             givenLinkedList = LinkedList()
             givenLinkedList.add(1)
             givenLinkedList.add("Num")
-            assert givenLinkedList.index("Num") == 0
+            assert givenLinkedList.index("Num") is ZERO
 
         def test_position_of_first_item_added_in_linked_list_should_be_size_minus_one(
             self,
@@ -67,7 +67,7 @@ class Test_Linked_List:
         ):
             assert givenLinkedList.index(400) == 2
             assert givenLinkedList.index(200) == 1
-            assert givenLinkedList.index(0) == 0
+            assert givenLinkedList.index(0) is ZERO
 
         def test_search_method_should_return_True_for_items_in_the_linked_list(
             self, givenLinkedList: LinkedList
@@ -105,7 +105,7 @@ class Test_Linked_List:
             self, givenLinkedList: LinkedList
         ):
             assert givenLinkedList.index(1) == 1
-            assert givenLinkedList.index("Py") == 0
+            assert givenLinkedList.index("Py") is ZERO
 
         def test_item_removed_should_not_be_in_the_linked_list_anymore(
             self, givenLinkedList: LinkedList
@@ -124,7 +124,7 @@ class Test_Linked_List:
             givenLinkedList = LinkedList()
             givenLinkedList.append(1)
             givenLinkedList.append("Num")
-            assert givenLinkedList.index(1) == 0
+            assert givenLinkedList.index(1) is ZERO
             assert givenLinkedList.index("Num") == 1
 
         def test_item_should_be_added_the_head_of_an_empty_linked_list(self):
@@ -152,7 +152,7 @@ class Test_Linked_List:
         def test_index_of_previous_items_should_be_the_same(
             self, givenLinkedList: LinkedList
         ):
-            assert givenLinkedList.index(0) == 0
+            assert givenLinkedList.index(0) is ZERO
 
         def test_index_of_following_items_should_be_adjusted(
             self, givenLinkedList: LinkedList
@@ -166,7 +166,7 @@ class Test_Linked_List:
             givenLinkedList.insert("Sleepers", 0)
             assert givenLinkedList.head.data == "Sleepers"
             assert givenLinkedList.index("Pyjamas") == 1
-            assert givenLinkedList.index("Sleepers") == 0
+            assert givenLinkedList.index("Sleepers") is ZERO
 
         def test_inserting_at_a_position_that_is_out_of_range_raises_an_error(self):
             givenLinkedList = LinkedList()

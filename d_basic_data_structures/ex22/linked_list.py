@@ -7,6 +7,17 @@ Linked Lists are discussed in
 https://runestone.academy/runestone/books/published/pythonds3/BasicDS/ImplementinganUnorderedListLinkedLists.html
 """
 
+# Let's set a constant so we can use 'is' comparison. Using '==' is not
+# sufficient since `False == 0` would return True, when we would want it to
+# be False if `0` is meant to be a position.
+#
+# Although...there's a tiny likelihood (super close to 0%) that
+# someone would use this class (found in a repo for book exercise)
+# would decide to pass `False` as `position`. 🤔
+# It might be a good idea anyway to implement it this way to reinforce the idea
+# in my own head that `False == 0` returns `True`. 😅
+ZERO = 0
+
 
 class Node:
     _next: Optional[Node]
@@ -192,16 +203,6 @@ class LinkedList:
                 f"Position {position} is out of range. "
                 f"Size of linked list is {self.size}."
             )
-
-        # Let's set a constant so we can use 'is' comparison. Using '==' is not
-        # sufficient since `False == 0` would return True, when we would want it to
-        # be False. Although...there's only a tiny likelihood (super close to 0%) that
-        # someone would use this class (found in a repo for book exercise)
-        # would decide to pass `False` as `position`. 🤔
-        # It might be a good idea anyway to implement it this way to reinforce the idea
-        # in my own head that `False == 0` returns `True`. 😅
-        # TODO do this for other `== position` conditions
-        ZERO = 0
         item = None
         if position is ZERO:
             item = self.head.data
