@@ -84,15 +84,13 @@ class Test_Linked_List:
                 assert givenLinkedList.search(itemNotInLinkedList) is False
 
     class Test_Removing_Item:
-        ITEM_TO_BE_REMOVED = "Num"
+        ITEM_TO_BE_REMOVED = 200
 
         @fixture(scope="class")
         def givenLinkedList(self):
-            givenLinkedList = LinkedList()
-            givenLinkedList.add(1)
-            givenLinkedList.add(self.ITEM_TO_BE_REMOVED)
-            givenLinkedList.add("Py")
-            assert givenLinkedList.size == 3
+            givenSize = 3
+            givenLinkedList = _generate_linked_list(givenSize)
+            assert givenLinkedList.size == givenSize
             givenLinkedList.remove(self.ITEM_TO_BE_REMOVED)
             return givenLinkedList
 
@@ -104,8 +102,8 @@ class Test_Linked_List:
         def test_removing_an_item_should_adjust_indices_of_items_in_linked_list(
             self, givenLinkedList: LinkedList
         ):
-            assert givenLinkedList.index(1) == 1
-            assert givenLinkedList.index("Py") is ZERO
+            assert givenLinkedList.index(400) == 1
+            assert givenLinkedList.index(0) is ZERO
 
         def test_item_removed_should_not_be_in_the_linked_list_anymore(
             self, givenLinkedList: LinkedList
