@@ -198,22 +198,15 @@ class LinkedList:
         Raises:
             Exception: When {position} is out of range.
         """
-        if self.head is None:
-            raise ValueError(
-                f"Position {position} is out of range. "
-                f"Size of linked list is {self.size}."
-            )
-        item = None
-        if position is ZERO:
-            item = self.head.data
-            self.head = self.head.next
-            return item
-
-        currentNode, prevNode = self._get_node_and_previous_node(position)
+        currentNode, previousNode = self._get_node_and_previous_node(position)
         if currentNode is None:
             raise ValueError(
                 f"Position {position} is out of range. "
                 f"Size of linked list is {self.size}."
             )
-        prevNode.next = currentNode.next
+
+        if previousNode:
+            previousNode.next = currentNode.next
+        else:
+            self.head = currentNode.next
         return currentNode.data
