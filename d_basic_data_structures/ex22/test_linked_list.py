@@ -3,6 +3,18 @@ from pytest import fixture, raises
 from .linked_list import LinkedList
 
 
+def _generate_linked_list(size: int) -> LinkedList:
+    """
+    Helper function that generates a linked list of a certain {size}.
+
+    Each item's data is {position} * 200.
+    """
+    ll = LinkedList()
+    for i in range(size):
+        ll.add((size - i - 1) * 200)
+    return ll
+
+
 class Test_Linked_List:
     def test_fresh_linked_list_should_be_empty(self):
         givenLinkedList = LinkedList()
@@ -42,11 +54,7 @@ class Test_Linked_List:
     class Test_3_Item_Linked_List:
         @fixture(scope="class")
         def givenLinkedList(self):
-            ll = LinkedList()
-            ll.add(1)
-            ll.add("Num")
-            ll.add("Py")
-            return ll
+            return _generate_linked_list(3)
 
         def test_size_prop_should_return_size_of_linked_list(
             self, givenLinkedList: LinkedList
@@ -57,23 +65,23 @@ class Test_Linked_List:
         def test_index_method_should_return_position_of_items_in_linked_list(
             self, givenLinkedList: LinkedList
         ):
-            assert givenLinkedList.index(1) == 2
-            assert givenLinkedList.index("Num") == 1
-            assert givenLinkedList.index("Py") == 0
+            assert givenLinkedList.index(400) == 2
+            assert givenLinkedList.index(200) == 1
+            assert givenLinkedList.index(0) == 0
 
         def test_search_method_should_return_True_for_items_in_the_linked_list(
             self, givenLinkedList: LinkedList
         ):
-            givenItemsInLinkedList = [1, "Num", "Py"]
+            givenItemsInLinkedList = [0, 200, 400]
             for itemInLinkedList in givenItemsInLinkedList:
                 assert givenLinkedList.search(itemInLinkedList)
 
         def test_search_method_should_return_False_for_items_not_in_the_linked_list(
             self, givenLinkedList: LinkedList
         ):
-            givenItemsNotInLinkedList = ["One", 2, "Pandas"]
+            givenItemsNotInLinkedList = ["One", 8, "Pandas"]
             for itemNotInLinkedList in givenItemsNotInLinkedList:
-                assert givenLinkedList.search(itemNotInLinkedList) == False
+                assert givenLinkedList.search(itemNotInLinkedList) is False
 
     class Test_Removing_Item:
         ITEM_TO_BE_REMOVED = "Num"
@@ -128,10 +136,7 @@ class Test_Linked_List:
     class Test_Inserting_an_Item:
         @fixture(scope="class")
         def givenLinkedList(self):
-            ll = LinkedList()
-            ll.add(1)
-            ll.add("Num")
-            ll.add("Py")
+            ll = _generate_linked_list(3)
             assert ll.size == 3
             ll.insert("Pandas", 1)
             return ll
@@ -147,13 +152,13 @@ class Test_Linked_List:
         def test_index_of_previous_items_should_be_the_same(
             self, givenLinkedList: LinkedList
         ):
-            assert givenLinkedList.index("Py") == 0
+            assert givenLinkedList.index(0) == 0
 
         def test_index_of_following_items_should_be_adjusted(
             self, givenLinkedList: LinkedList
         ):
-            assert givenLinkedList.index("Num") == 2
-            assert givenLinkedList.index(1) == 3
+            assert givenLinkedList.index(200) == 2
+            assert givenLinkedList.index(400) == 3
 
         def test_inserting_at_position_0_should_change_head(self):
             givenLinkedList = LinkedList()
@@ -191,15 +196,9 @@ class Test_Linked_List:
                     with raises(ValueError, match=expectedErrorMsg):
                         givenLinkedList.pop(outOfRangePosition)
 
-                ## TODO maybe refactor a LinkedList generator?
-
-                givenLinkedList = LinkedList()
-                givenLinkedList.add(1)
-                givenLinkedList.add("Num")
-                givenLinkedList.add("Py")
-                givenSize = givenLinkedList.size
+                givenSize = 3
+                givenLinkedList = _generate_linked_list(givenSize)
                 givenOutOfRangePositions = [3, 5, 10]
-
                 for outOfRangePosition in givenOutOfRangePositions:
                     expectedErrorMsg = (
                         f"Position {outOfRangePosition} is out of range. "
@@ -220,10 +219,8 @@ class Test_Linked_List:
         class Test_When_popping_at_position_0:
             @fixture(scope="class")
             def givenLinkedList(self) -> LinkedList:
-                ll = LinkedList()
-                ll.add(1)
-                ll.add("Num")
-                assert ll.head.data == "Num"
+                ll = _generate_linked_list(2)
+                assert ll.head.data == 0
                 ll.pop(0)
                 return ll
 
@@ -235,9 +232,9 @@ class Test_Linked_List:
             def test_popping_an_item_at_position_0_should_change_head(
                 self, givenLinkedList: LinkedList
             ):
-                assert givenLinkedList.head.data == 1
+                assert givenLinkedList.head.data == 200
 
             def test_item_popped_should_not_be_in_linked_list_anymore(
                 self, givenLinkedList: LinkedList
             ):
-                assert givenLinkedList.search("Num") is False
+                assert givenLinkedList.search(0) is False
